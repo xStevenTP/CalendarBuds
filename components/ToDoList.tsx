@@ -6,10 +6,6 @@ export default function ToDoList({ tasks, admin }) {
 }
 
 function PostTask({ task, admin }) {
-  // Naive method to calc word count and read time
-  //const wordCount = item?.content.trim().split(/\s+/g).length;
-  //const minutesToRead = (wordCount / 100 + 1).toFixed(0);
-
   return (
     <div className="card">
       <Link href={`/${task.username}`}>
