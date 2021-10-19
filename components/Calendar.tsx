@@ -2,6 +2,7 @@ import React from "react";
 import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import eventList from "./Events";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 //console.log(typeof eventList())
 const calendarEvents = [
@@ -24,9 +25,21 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 function Calendar() {
   const [events, setEvents] = React.useState(calendarEvents);
+  const [alert, setAlert] = React.useState(null);
   const selectedEvent = (event) => {
     window.alert(event.title);
   }
+  const addNewEventAlert = (slotInfo) => {
+    setAlert(
+      <SweetAlert
+        input
+        showCancel
+        title="Input something"
+        onConfirm={(e) => addNewEvent(e, slotInfo)}
+        onCancel={() => hideAlert()}
+      />
+    );
+  };
   const addNewEvent = (e, slotInfo) => {
     var newEvents = events;
     newEvents.push({
@@ -34,7 +47,11 @@ function Calendar() {
       start: slotInfo.start,
       end: slotInfo.end,
     });
+    setAlert(null);
     setEvents(newEvents);
+  };
+  const hideAlert = () => {
+    setAlert(null);
   };
   const eventColors = (event) => {
     var backgroundColor = "event-";
@@ -47,6 +64,7 @@ function Calendar() {
   };
   return (
     <>
+      {alert}
         <BigCalendar
                 selectable
                 localizer={localizer}
@@ -55,6 +73,7 @@ function Calendar() {
                 scrollToTime={new Date(1970, 1, 1, 6)}
                 defaultDate={new Date()}
                 onSelectEvent={(event) => selectedEvent(event)}
+                onSelectSlot = {(slotInfo) => addNewEventAlert(slotInfo)}
                 eventPropGetter={eventColors}
                 resizeable
                 style={{ height: "100vh" }}
