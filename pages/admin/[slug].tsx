@@ -24,9 +24,8 @@ function TaskManager() {
   const [preview, setPreview] = useState(false);
 
   const router = useRouter();
-  const { slug } = router.query;
-  //fix slug issue
-  const taskRef = firestore.collection('users').doc(auth.currentUser.uid).collection('tasks');
+  const {slug}  = router.query;
+  const taskRef = firestore.collection('users').doc(auth.currentUser.uid).collection('tasks').doc(String(slug));
   const [task] = useDocumentData(taskRef);
 
   return (
