@@ -10,7 +10,7 @@ function PostTask({ task, admin }) {
     <div className="card">
       <Link href={`/${task.username}`}>
         <a>
-          <strong>{task.duedate}</strong>
+          <strong>{task.startdate} - {task.duedate}</strong>
         </a>
       </Link>
 
