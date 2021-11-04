@@ -60,6 +60,7 @@ function CreateNewTask() {
       slug,
       uid,
       username,
+      startdate : 'never',
       duedate : 'never',
       finished: false,
       content: '# hello world!',
