@@ -55,8 +55,9 @@ function TaskManager() {
 function TaskForm({ defaultValues, taskRef, preview }) {
   const { register, handleSubmit, reset, watch } = useForm({ defaultValues, mode: 'onChange' });
 
-  const updateTask = async ({ duedate, content, priority, finished }) => {
+  const updateTask = async ({ startdate, duedate, content, priority, finished }) => {
     await taskRef.update({
+      startdate,
       duedate,
       content,
       priority,
@@ -64,7 +65,7 @@ function TaskForm({ defaultValues, taskRef, preview }) {
       updatedAt: serverTimestamp(),
     });
 
-    reset({ duedate, content, priority, finished });
+    reset({ startdate, duedate, content, priority, finished });
 
     toast.success('Task updated successfully!')
   };
@@ -78,7 +79,11 @@ function TaskForm({ defaultValues, taskRef, preview }) {
       )}
 
       <div className={preview ? styles.hidden : styles.controls}>
-  
+        
+        <fieldset>
+          <label>Start Date</label>
+          <input type = "text" name="startdate" {...register("startdate")} />
+        </fieldset>
 
         <fieldset>
           <label>Due Date</label>
